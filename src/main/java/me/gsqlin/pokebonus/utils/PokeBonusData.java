@@ -5,9 +5,8 @@ import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import me.gsqlin.pokebonus.PokeBonus;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
 public class PokeBonusData {
     static PokeBonusData pokeBonusData;
     static PokeBonus plugin = PokeBonus.getInstance();
@@ -81,6 +80,12 @@ public class PokeBonusData {
                 pokeBonusData = new PokeBonusData();
             }else{
                 pokeBonusData = plugin.gson.fromJson(jsonString,PokeBonusData.class);
+            }
+        }
+        for (Map.Entry<UUID, BonusData> dataEntry : pokeBonusData.bonusDataMap.entrySet()) {
+            if ((dataEntry.getValue().getMain() == null&&dataEntry.getValue().getSub() == null)
+                    ||(dataEntry.getValue().getMain() == null&&dataEntry.getValue().getSub().size() < 1)){
+                pokeBonusData.bonusDataMap.remove(dataEntry.getKey());
             }
         }
         return pokeBonusData;

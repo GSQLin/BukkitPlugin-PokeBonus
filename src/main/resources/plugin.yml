@@ -1,0 +1,7 @@
+name: ${rootProject.name}
+main: ${group}
+version: ${version}
+description: PokeBonus
+commands:
+  pokebonus:
+    description: main command

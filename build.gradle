@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'java'
+}
+
+apply plugin: 'org.spongepowered.mixin'
+
+group = 'me.gsqlin.pokebonus.PokeBonus'
+version = '1.0'
+
+java {
+    archivesBaseName = 'PokeBonus'
+    toolchain.languageVersion = JavaLanguageVersion.of(8)
+}
+
+minecraft {
+    mappings channel: 'snapshot', version: '20210309-1.16.5'
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly(fileTree("libs"))
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+task testJar(type: Jar) {
+    manifest {
+        attributes 'Main-Path': 'This is an application JAR'
+    }
+}
+
+processResources {
+    setFilteringCharset("UTF-8")
+    expand project.properties
+}

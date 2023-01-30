@@ -5,7 +5,7 @@
 ~~~java
 package me.myplugin.myplugin.Example;
 
-import me.gsqlin.pokebonus.utils.PokeBonusData;  
+import me.gsqlin.pokebonus.utils.PokeData;  
 import org.bukkit.Bukkit;  
 import org.bukkit.plugin.java.JavaPlugin;
 import me.myplugin.myplugin.Commands;
@@ -32,7 +32,7 @@ import com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;  
 import me.gsqlin.pokebonus.utils.Bonus;  
 import me.gsqlin.pokebonus.utils.BonusData;  
-import me.gsqlin.pokebonus.utils.PokeBonusData;  
+import me.gsqlin.pokebonus.utils.PokeData;  
 import org.bukkit.command.Command;  
 import org.bukkit.command.CommandExecutor;  
 import org.bukkit.command.CommandSender;  

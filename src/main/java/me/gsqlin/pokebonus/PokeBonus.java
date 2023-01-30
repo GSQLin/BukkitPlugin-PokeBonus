@@ -1,14 +1,14 @@
 package me.gsqlin.pokebonus;
 
 import com.google.gson.Gson;
-import me.gsqlin.pokebonus.utils.PokeBonusData;
+import me.gsqlin.pokebonus.utils.PokeData;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PokeBonus extends JavaPlugin {
     public Gson gson;
 
-    public PokeBonusData pokeBonusData;
+    public PokeData pokeData;
 
     @Override
     public void onLoad() {
@@ -19,7 +19,7 @@ public class PokeBonus extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         reloadConfig();
-        pokeBonusData = PokeBonusData.getInstance();
+        pokeData = PokeData.getInstance();
         getCommand("pokebonus").setExecutor(new Commands());
         getLogger().info("§aPlugin enabled!");
     }
@@ -27,7 +27,7 @@ public class PokeBonus extends JavaPlugin {
     @Override
     public void onDisable() {
         System.out.println("§rSaving pokemon bonus data!Please waiting!");
-        PokeBonusData.save();
+        PokeData.save();
         getLogger().info("§aPlugin disabled!");
     }
 

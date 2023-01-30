@@ -7,20 +7,18 @@ import me.gsqlin.pokebonus.PokeBonus;
 
 import java.util.*;
 
-public class PokeBonusData {
-    static PokeBonusData pokeBonusData;
+public class PokeData {
+    static PokeData pokeData;
     static PokeBonus plugin = PokeBonus.getInstance();
 
+
+    private Map<UUID,BonusData> bonusDataMap = new HashMap<>();
     public Map<UUID, BonusData> getBonusDataMap() {
         return bonusDataMap;
     }
-
     public void setBonusDataMap(Map<UUID, BonusData> bonusDataMap) {
         this.bonusDataMap = bonusDataMap;
     }
-
-    private Map<UUID,BonusData> bonusDataMap = new HashMap<>();
-
     public BonusData getBonusData(Pokemon pokemon){
         UUID uuid = pokemon.getUUID();
         if (this.bonusDataMap.get(uuid) == null) {
@@ -29,11 +27,10 @@ public class PokeBonusData {
         }
         return this.bonusDataMap.get(uuid);
     }
-
     public static void updatePokemon(Pokemon pokemon){
         pokemon.getStats().recalculateStats();
         UUID uuid = pokemon.getUUID();
-        BonusData bonusData = pokeBonusData.bonusDataMap.get(uuid);
+        BonusData bonusData = pokeData.bonusDataMap.get(uuid);
         if (bonusData == null) return;
         Double speed = 1.0;
         Double attack = 1.0;
@@ -62,26 +59,25 @@ public class PokeBonusData {
         PlayerPartyStorage pps = StorageProxy.getParty(pokemon.getOwnerPlayer());
         pps.set(0,pokemon);
     }
-
-    public static PokeBonusData getInstance(){
-        if (pokeBonusData == null){
+    public static PokeData getInstance(){
+        if (pokeData == null){
             String jsonString = plugin.getConfig().getString("data");
             if (jsonString == null||jsonString.equals("")){
-                pokeBonusData = new PokeBonusData();
+                pokeData = new PokeData();
             }else{
-                pokeBonusData = plugin.gson.fromJson(jsonString,PokeBonusData.class);
+                pokeData = plugin.gson.fromJson(jsonString, PokeData.class);
             }
         }
-        for (Map.Entry<UUID, BonusData> dataEntry : pokeBonusData.bonusDataMap.entrySet()) {
+        for (Map.Entry<UUID, BonusData> dataEntry : pokeData.bonusDataMap.entrySet()) {
             if (dataEntry.getValue().get() == null||dataEntry.getValue().get().size() < 1){
-                pokeBonusData.bonusDataMap.remove(dataEntry.getKey());
+                pokeData.bonusDataMap.remove(dataEntry.getKey());
             }
         }
-        return pokeBonusData;
+        return pokeData;
     }
     public static void save(){
-        if (pokeBonusData == null)return;
-        String jsonString = plugin.gson.toJson(pokeBonusData);
+        if (pokeData == null)return;
+        String jsonString = plugin.gson.toJson(pokeData);
         plugin.getConfig().set("data",jsonString);
         plugin.saveConfig();
     }

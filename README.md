@@ -76,7 +76,7 @@ List<String> list = PokeBonusData.getTotalValue(type,valueType);
 ~~~java
 double valueType = 0.0;
 String type = "Stat-Speed";
-List<double> list = pokeBonusData.getTotalValue(type,valueType);
+List<double> list = pokeBonusData.getTotalValue(type);
 double grossValue = 0.0;
 for(double value:list){
 	grossValue+=value;

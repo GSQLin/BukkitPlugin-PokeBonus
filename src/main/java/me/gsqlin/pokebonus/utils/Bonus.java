@@ -9,7 +9,7 @@ public class Bonus extends ParamParser {
         return this.getValue("type");
     }
 
-    public Object getValue(){
+    public String getValue(){
         return this.getValue("value");
     }
 }

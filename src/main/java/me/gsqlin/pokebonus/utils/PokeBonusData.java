@@ -41,20 +41,10 @@ public class PokeBonusData {
         Double defense = 1.0;
         Double sDefense = 1.0;
         Double hp = 1.0;
-        if (bonusData.getMain() != null){
-            String type = bonusData.getMain().getType();
-            Double value = Double.valueOf(bonusData.getMain().getValue().toString());
-            if (type.equals("Stat-Speed")) speed += value;
-            if (type.equals("Stat-Attack")) attack += value;
-            if (type.equals("Stat-SAttack")) sAttack += value;
-            if (type.equals("Stat-Defense")) defense += value;
-            if (type.equals("Stat-SDefense")) sDefense += value;
-            if (type.equals("Stat-HP")) hp += value;
-        }
-        if (bonusData.getSub() != null){
-            for (Bonus bonus : bonusData.getSub()) {
+        if (bonusData.get() != null){
+            for (Bonus bonus : bonusData.get()) {
                 String subType = bonus.getType();
-                Double subValue = (Double) bonus.getValue();
+                Double subValue = Double.valueOf(bonus.getValue());
                 if (subType.equals("Stat-Speed")) speed += subValue;
                 if (subType.equals("Stat-Attack")) attack += subValue;
                 if (subType.equals("Stat-SAttack")) sAttack += subValue;
@@ -83,8 +73,7 @@ public class PokeBonusData {
             }
         }
         for (Map.Entry<UUID, BonusData> dataEntry : pokeBonusData.bonusDataMap.entrySet()) {
-            if ((dataEntry.getValue().getMain() == null&&dataEntry.getValue().getSub() == null)
-                    ||(dataEntry.getValue().getMain() == null&&dataEntry.getValue().getSub().size() < 1)){
+            if (dataEntry.getValue().get() == null||dataEntry.getValue().get().size() < 1){
                 pokeBonusData.bonusDataMap.remove(dataEntry.getKey());
             }
         }

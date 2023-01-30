@@ -50,15 +50,13 @@ public class Commands implements CommandExecutor {
 		//获取宝可梦数据  
 		BonusData data = plugin.pokeBonusData.getBonusData(pokemon);  
 		//建立主加成和子加成  
-		Bonus MainBonus = new Bonus("type=Stat-Speed;value=0.5");  
 		Bonus SubBonus = new Bonus("type=Stat-Attack;value=0.1");  
 		Bonus SubBonus2 = new Bonus("type=Stat-SAttack;value=0.05");  
 		List<Bonus> bonusList = new ArrayList<>();  
 		bonusList.add(SubBonus);  
 		bonusList.add(SubBonus2);  
 		//设置到宝可梦的数据里面  
-		data.setMain(MainBonus);  
-		data.setSub(bonusList);  
+		data.set(bonusList);  
 		//在总数据内更新它  
 		PokeBonusData.updatePokemon(pokemon);
 		return false;  
@@ -66,7 +64,6 @@ public class Commands implements CommandExecutor {
 }
 ~~~
 注意: 记得更新，其他自定义的数据可以自己写更新内容。
-有些插件依赖本插件开发可能需要占用MainBonus的值所以，所以一般建议添加值的时候建议还是往SubBonus中添加
 ## 其他用法
 获取所有标签值
 ~~~java
